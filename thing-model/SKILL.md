@@ -1,12 +1,7 @@
 ---
 name: thing-model-skill
 description: "Use when generating, validating, or troubleshooting 联犀 IoT thing-model JSON definitions for properties, events, actions, and schema constraints."
-  openclaw:
-    requires:
-      bins:
-        - ur
 ---
-
 
 # 物模型生成与校验 Skill
 

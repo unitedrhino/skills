@@ -1,12 +1,7 @@
 ---
 name: protocol-script-skill
 description: "Use when implementing, reviewing, or debugging Yaegi-based protocol scripts for device uplink/downlink hooks, payload conversion, and联动 logic in the IoT platform."
-  openclaw:
-    requires:
-      bins:
-        - ur
 ---
-
 
 # 协议脚本开发 Skill
 
