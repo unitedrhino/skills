@@ -29,6 +29,7 @@ ur login --setup-code <CODE> --json
 
 ```
 SKILL.md              # 主 Skill（统一入口）
+ai-tool/              # AI 工具使用指南
 ur-device/            # 设备管理
 ur-product/           # 产品管理
 ur-project/           # 项目管理
@@ -41,6 +42,25 @@ ur-device-debug/      # 设备调试
 scene-linkage/        # 场景联动
 thing-model/          # 物模型
 protocol-script/      # 协议脚本
+```
+
+## 与 CLI 的关系
+
+本仓库（`.gits/skills/`）是 **CLI 内部 skill 目录（`.gits/cli/skill/`）的同步产物**，专用于外部安装和发布。
+
+- **源码与维护入口**：`.gits/cli/skill/`（位于 CLI 仓库内）
+- **同步脚本**：`.gits/cli/scripts/update-skills.sh`
+- **使用场景**：外部用户下载安装、Docker 镜像打包、平台 skill 上传
+
+当后端 API 变更后，运行以下命令同步：
+
+```bash
+cd .gits/cli
+bash scripts/update-skills.sh
+# 然后分别提交 cli 仓库和 skills 仓库
+cd .gits/skills
+git add -A && git commit -m "chore(skill): 同步 API 端点列表"
+git push origin main
 ```
 
 ## 快速开始
