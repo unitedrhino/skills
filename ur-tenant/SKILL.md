@@ -11,7 +11,7 @@ metadata:
 
 > **本文件由 `ur generate-skills` 自动生成，请勿手动编辑**
 >
-> 如需更新，修改 `scripts/lib/swagger.ts` 中的域名定义后重新生成。
+> 如需更新，修改 `scripts/generate-api-lists.py` 中的域名定义后重新生成。
 
 ## 核心概念
 
@@ -32,6 +32,22 @@ metadata:
 | 平台管理员 | 创建/删除租户、查看所有租户、管理租户配置 | 创建新租户、查看所有租户 |
 | 租户管理员 | 管理本租户信息、邀请用户、配置权限 | 查看本租户信息、邀请用户加入租户 |
 
+## 平台专属接口说明
+
+本 Skill 涵盖的接口中，以下接口仅限 **平台管理员**（`platform` 权限）调用：
+
+| 子域 | 路径前缀 | 说明 |
+|------|---------|------|
+| 租户列表 | `/api/v1/system/tenant/info/get-list` | 查询平台下所有租户 |
+| 删除租户 | `/api/v1/system/tenant/info/delete` | 删除指定租户 |
+| 租户续费授权 | `/api/v1/system/tenant/renewal/*` | 租户续费与直接授权 |
+| 租户应用管理 | `/api/v1/system/tenant/app/*` | 平台视角管理租户应用绑定 |
+
+> **权限说明**：
+> - `system/tenant/info/get-list` 是**平台视角**的租户列表，仅平台管理员可调用
+> - 租户管理员查看**本租户信息**请使用 `ur system/tenant/info view`（权限 `admin`）
+> - 租户管理员管理**本租户用户**请使用 `ur tenant user get-list`（权限 `admin`）
+
 ---
 
 ### 平台管理员视角
@@ -44,21 +60,21 @@ metadata:
 
 创建一个新的 SaaS 租户
 
-- 涉及 CLI: `ur tenant info create`
+- 涉及 CLI: `ur system/tenant/info create`
 - 工作流: 填写租户名称和代码 → 设置租户管理员 → 绑定应用 → 配置租户参数
 
 **查看所有租户**
 
 查询平台下所有租户列表
 
-- 涉及 CLI: `ur tenant info get-list`, `ur tenant info get-one`
+- 涉及 CLI: `ur system/tenant/info view`
 - 工作流: 无需传 tenant-code header → 返回所有租户列表
 
 **更新租户信息**
 
 修改租户的基本信息和配置
 
-- 涉及 CLI: `ur tenant info update`, `ur tenant config update`
+- 涉及 CLI: `ur system/tenant/info update`, `ur system/tenant/config update`
 - 工作流: 选择目标租户 → 修改配置项 → 保存更新
 
 
@@ -72,7 +88,7 @@ metadata:
 
 获取当前租户的详细信息和配置
 
-- 涉及 CLI: `ur tenant info get-one`, `ur tenant config get-one`
+- 涉及 CLI: `ur system/tenant/info view`, `ur system/tenant/config view`
 - 工作流: 请求需带 tenant-code header → 只能查看本租户信息
 
 **邀请用户加入租户**
@@ -93,7 +109,7 @@ metadata:
 
 为租户启用/禁用应用
 
-- 涉及 CLI: `ur tenant app create`, `ur tenant app get-list`
+- 涉及 CLI: `ur system/tenant/app create`, `ur system/tenant/app view`
 - 工作流: 查看可用应用列表 → 启用应用 → 配置应用菜单
 
 
@@ -115,8 +131,8 @@ metadata:
 **场景描述**：创建租户 / 配置租户信息
 
 **涉及 CLI**：
-- `ur tenant info create`
-- `ur tenant config update`
+- `ur system/tenant/info create`
+- `ur system/tenant/config update`
 
 **工作流**：
 1. 创建租户
