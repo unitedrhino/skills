@@ -72,8 +72,9 @@ ur api /api/v1/ai/agent/info/delete \
 | `groupID` | integer | 否 |  按助手组ID过滤 (格式: int64) |
 | `name` | string | 否 |  名称模糊搜索 |
 | `page` | object | 否 |  |
-| `page.page` | integer | 否 |  页码（从1开始） (格式: int64) |
-| `page.pageSize` | integer | 否 |  每页大小 (格式: int64) |
+| `page.orders` | array[OrderBy] | 否 | 排序 |
+| `page.page` | integer | 否 |  页码 (格式: int64) |
+| `page.size` | integer | 否 |  每页大小 (格式: int64) |
 | `status` | string | 否 |  状态过滤 |
 | `tenantCode` | string | 否 |  租户编码过滤 |
 
@@ -83,8 +84,14 @@ ur api /api/v1/ai/agent/info/delete \
   "groupID": 1,
   "name": "示例名称",
   "page": {
+    "orders": [
+      {
+        "field": "string",
+        "sort": 1
+      }
+    ],
     "page": 1,
-    "pageSize": 1
+    "size": 1
   },
   "status": "string",
   "tenantCode": "string"
@@ -140,7 +147,7 @@ ur api /api/v1/ai/agent/info/delete \
 **调用示例**:
 ```bash
 ur api /api/v1/ai/agent/info/get-list \
-  --body '{"groupID": 1, "name": "示例名称", "page": {"page": 1, "pageSize": 1}, "status": "string", "tenantCode": "string"}'
+  --body '{"groupID": 1, "name": "示例名称", "page": {"orders": [{"field": "string", "sort": 1}], "page": 1, "size": 1}, "status": "string", "tenantCode": "string"}'
 ```
 
 ### POST `/api/v1/ai/agent/info/get-one`
@@ -388,16 +395,23 @@ ur api /api/v1/ai/clone/snapshot/delete \
 |------|------|------|------|
 | `cloneID` | integer | 是 |  分身ID (格式: int64) |
 | `page` | object | 是 |  |
-| `page.page` | integer | 否 |  页码（从1开始） (格式: int64) |
-| `page.pageSize` | integer | 否 |  每页大小 (格式: int64) |
+| `page.orders` | array[OrderBy] | 否 | 排序 |
+| `page.page` | integer | 否 |  页码 (格式: int64) |
+| `page.size` | integer | 否 |  每页大小 (格式: int64) |
 
 **请求示例**:
 ```json
 {
   "cloneID": 1,
   "page": {
+    "orders": [
+      {
+        "field": "string",
+        "sort": 1
+      }
+    ],
     "page": 1,
-    "pageSize": 1
+    "size": 1
   }
 }
 ```
@@ -429,7 +443,7 @@ ur api /api/v1/ai/clone/snapshot/delete \
 **调用示例**:
 ```bash
 ur api /api/v1/ai/clone/snapshot/get-list \
-  --body '{"cloneID": 1, "page": {"page": 1, "pageSize": 1}}'
+  --body '{"cloneID": 1, "page": {"orders": [{"field": "string", "sort": 1}], "page": 1, "size": 1}}'
 ```
 
 ### POST `/api/v1/ai/clone/snapshot/get-one`
