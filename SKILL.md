@@ -1,6 +1,6 @@
 ---
 name: ur-api
-description: "Use when calling 联犀 SaaS 平台 API: device management, user management, product management, tenant management, AI management, project management, system management, bigscreen visualization, or IoT device operations. triggers: API调用, CLI登录, Sandbox认证, 账号密码登录, AKSK, 设备列表, IoT设备控制, 设备注册, 访问令牌, 物模型管理, OTA升级, 场景联动, 权限配置, swagger schema, 项目管理, 区域管理, 系统管理, 问题反馈, 提交反馈, 反馈类型, 使用问题, 业务受损, 业务不可用, 大屏, 数据可视化, GoView, 画布, 看板, 编辑大屏, 发布大屏"
+description: "Use when calling 联犀 SaaS 平台 API: device management, user management, product management, tenant management, AI management, project management, system management, bigscreen visualization, or IoT device operations. triggers: API调用, CLI登录, CLI升级, _notice, Sandbox认证, 账号密码登录, AKSK, 设备列表, IoT设备控制, 设备注册, 访问令牌, 物模型管理, OTA升级, 场景联动, 权限配置, swagger schema, 项目管理, 区域管理, 系统管理, 问题反馈, 提交反馈, 反馈类型, 使用问题, 业务受损, 业务不可用, 大屏, 数据可视化, GoView, 画布, 看板, 编辑大屏, 发布大屏"
 ---
 
 # ur-api — 联犀 SaaS 平台 API 工具
@@ -23,7 +23,7 @@ CLI 主实现位于独立仓库 `unitedrhino/cli`，通过 Go CLI `ur` 提供能
 
 敏感值优先通过 Sandbox 环境变量或 stdin 注入。`--password`、`--access-secret` 明文参数仅用于兼容，可能进入 shell 历史或进程列表；不得把密码、AccessSecret 或完整 Token 写入 skill、日志、截图和版本库。
 
----
+业务命令的 JSON 结果可能包含 `_notice.update` 或 `_notice.skills`。先完成用户当前请求，再按 `command` 简短提示或执行用户已授权的升级；统一使用 `ur upgrade` 更新 CLI 与客户端 Skills。详细规则见 `references/cli-usage.md` 的“CLI 更新提示与处理”。
 
 ## 角色权限区分
 
@@ -241,7 +241,7 @@ ur check --json
 | 文档 | 说明 |
 |------|------|
 | `references/auth.md` | 认证方式详解（Device Auth / JWT / 环境变量） |
-| `references/cli-usage.md` | CLI 命令用法（多客户端 Skills 分发、API 调用、物模型、场景联动、协议脚本、schema） |
+| `references/cli-usage.md` | CLI 命令用法（更新通知、多客户端 Skills 分发、API 调用、物模型、场景联动、协议脚本、schema） |
 | `references/api-conventions.md` | API 通用约定（请求格式、响应格式、分页、权限标注） |
 | `references/troubleshooting.md` | 常见问题排查（登录失败、401/403、连接问题、问题反馈） |
 | `references/quick-reference.md` | 高频端点速查（Top 15 最常用端点） |
