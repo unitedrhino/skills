@@ -22,7 +22,7 @@ WiFi+BLE 直连设备通常使用 `deviceType=1`、`netType=7`、
 
 ```bash
 ur api /api/v1/things/product/info/get-list \
-  --body '{"keyword":"<product-name>","page":{"page":1,"pageSize":20}}'
+  --body '{"keyword":"<product-name>","page":{"page":1,"size":20}}'
 ```
 
 CLI 暂无经过验证的产品创建 Layer 2 参数封装，创建使用明确的 API，不使用

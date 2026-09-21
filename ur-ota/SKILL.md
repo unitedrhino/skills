@@ -92,7 +92,7 @@ ur api /api/v1/things/ota/firmware/job/create --body '{
 ur api /api/v1/things/ota/firmware/job/get-one \
   --body '{"id":"<jobID>"}'
 ur api /api/v1/things/ota/firmware/job/get-list \
-  --body '{"firmwareID":"<firmwareID>","page":{"page":1,"pageSize":20}}'
+  --body '{"firmwareID":"<firmwareID>","page":{"page":1,"size":20}}'
 ```
 
 还要查询设备结果和原始进度日志；端点字段见
@@ -106,7 +106,7 @@ ur api /api/v1/things/ota/firmware/job/get-list \
 
 ```bash
 ur api /api/v1/things/ota/module/info/get-list \
-  --body '{"productID":"<productID>","page":{"page":1,"pageSize":20}}'
+  --body '{"productID":"<productID>","page":{"page":1,"size":20}}'
 ```
 
 完整字段见 [模块接口](references/api/ur-ota-things-ota-module-info.md)。单镜像产品不为形式
