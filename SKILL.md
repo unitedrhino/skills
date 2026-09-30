@@ -1,6 +1,6 @@
 ---
 name: ur-api
-description: "Use when calling 联犀 SaaS 平台 API or bringing physical IoT firmware onto the platform: product and device management, provisioning, MQTT, uplink/downlink, debugging, OTA, authentication recovery, project management, system management, or bigscreen visualization. triggers: API调用, CLI登录, CLI升级, _notice, Sandbox认证, 账号密码登录, AKSK, 设备列表, IoT设备控制, 设备固件, 固件接入, BLE配网, MQTT, OTA升级, 鉴权恢复, 设备注册, 访问令牌, 物模型管理, 场景联动, 权限配置, swagger schema, 项目管理, 区域管理, 系统管理, 大屏, 数据可视化, GoView"
+description: "Use when calling 联犀 SaaS 平台 API: device management, user management, product management, tenant management, AI management, project management, system management, bigscreen visualization, or IoT device operations. triggers: API调用, CLI登录, CLI升级, _notice, Sandbox认证, 账号密码登录, AKSK, 设备列表, IoT设备控制, 设备注册, 访问令牌, 物模型管理, OTA升级, 场景联动, 权限配置, swagger schema, 项目管理, 区域管理, 系统管理, 问题反馈, 提交反馈, 反馈类型, 使用问题, 业务受损, 业务不可用, 大屏, 数据可视化, GoView, 画布, 看板, 编辑大屏, 发布大屏, 文档解析, 解析PDF, 解析Excel, 读附件, ur doc"
 ---
 
 # ur-api — 联犀 SaaS 平台 API 工具
@@ -29,6 +29,10 @@ CLI 主实现位于独立仓库 `unitedrhino/cli`，通过 Go CLI `ur` 提供能
 
 排查客户端报错、页面状态或设备列表时，先读[客户端调试 AI 流程](references/client-debug.md)。本次会话只请求一次操控授权，后续白名单动作不再弹窗；逐条核对执行结果，用户可通过控制标识立即取消，结束时关闭流。
 
+## 文档解析(ur doc)
+
+用户上传或引用文档(PDF/Word/PPT/Excel/图片/邮件等)需要读取内容时,使用 `ur doc parse`:先 `--format outline` 看结构地图,再按需 `--format md` 通读/`--section` 取章节,或 `--format json` 落盘后用 jq 精查(excel 公式溯源、单元格坐标)。扫描件/图片加 `--ocr`(默认平台模型池计费)。完整用法见 `ur-doc/SKILL.md`。
+
 ## 角色权限区分
 
 **全栈权限总索引**（契约 / 运行时 / 前端 / 消歧）：仓库根目录 `docs/中台/功能说明/权限体系总览.md`。
@@ -47,14 +51,13 @@ CLI 主实现位于独立仓库 `unitedrhino/cli`，通过 Go CLI `ur` 提供能
 | ur-device | 无权限 | 设备 CRUD、属性控制 | 设备分享、收藏 |
 | ur-user | 无权限 | 用户 CRUD、角色管理 | 个人信息、修改密码 |
 | ur-product | 无权限 | 产品 CRUD、物模型管理 | 无权限 |
-| ur-ota | 无权限 | 固件包、模块与升级任务管理 | 无权限 |
 | ur-project | 无权限 | 项目 CRUD、区域管理 | 查看权限内项目 |
 | ur-ai | 无权限 | Agent 配置、告警管理 | 无权限 |
 | ur-view | 无权限 | 大屏 CRUD、画布编辑、发布管理、素材管理 | 无权限 |
 
 ### 当前用户身份
 
-调用任何联犀平台 API 前，**先运行 check 确认角色**，错误的角色会导致 403。纯外部 HTTP 任务不依赖平台角色，不为此运行 `ur check`：
+调用任何 API 前，**先运行 check 确认角色**，错误的角色会导致 403：
 
 ```bash
 ur check --json
@@ -77,8 +80,6 @@ ur check --json
 
 ## AI 快速决策
 
-规则引擎 AI 任务、定时 HTTP、设备状态查询后转发或跨设备控制，先读 [AI 工具开发](ai-tool/SKILL.md)，再按其中的具体平台操作加载对应子域。设备数据模拟只是通用任务的一个可选分支，不要把模拟澄清问题或接口合同套用到普通 HTTP、巡检和转发任务。
-
 ### 第一步：确认当前用户角色
 
 ```bash
@@ -98,13 +99,9 @@ ur check
 
 ### 第二步：根据任务选择子域
 
-设备模拟、测试数据或属性控制必须先读 [设备控制与模拟](ur-device/references/device-control.md)：按用户意图区分仅云端改值、模拟上报、实体控制和只生成样例。仅云端使用模式 4，不要求设备在线；标识符以真实物模型为准，不假设大小写。不能把通用设备控制说明套用到云端模拟。
-
 | 用户意图 / 关键词 | 加载子域 | 最低所需角色 |
 |----------------|---------|------------|
 | 设备列表、设备控制、属性上报、MQTT、三元组、网关、OTA升级设备 | `ur-device` | admin（控制/CRUD），user（分享/收藏） |
-| 设备固件从零接入、编译烧录、配网、MQTT 契约、OTA 回滚、鉴权自愈 | `device-firmware` | 固件操作无平台角色；平台初始化通常需 admin |
-| OTA 升级包、模块、任务创建和进度核验 | `ur-ota` | admin |
 | 产品定义、物模型、协议脚本、OTA固件包、品类 | `ur-product` | admin |
 | 项目、区域、分组、数据权限申请 | `ur-project` | admin（管理），user（申请权限） |
 | 登录、用户信息、角色、部门、字典、通知、访问令牌、修改密码 | `ur-user` | admin（CRUD），user（自身信息） |
@@ -180,12 +177,6 @@ IoT AI 工具迁移相关子域：
 
 大屏可视化子域：
 - `ur-view/SKILL.md` — 大屏（GoView）项目 CRUD、画布 JSON 本地编辑闭环（pull/validate/push/publish/screenshot）、素材库管理、IoT 数据绑定配方
-
-设备端固件子域：
-- `device-firmware/SKILL.md` — 设备从产品/物模型初始化到固件接入、首刷、调试、全量 OTA、鉴权恢复和实机验收
-
-OTA 管理子域：
-- `ur-ota/SKILL.md` — 升级包上传登记、模块和升级任务管理；设备端协议与回滚由 `device-firmware` 负责
 
 ---
 

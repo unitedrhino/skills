@@ -15,7 +15,7 @@ ur check --json
 ## Device Flow（默认）
 
 ```
-ur login → 生成 setup code → 浏览器授权 → 创建访问令牌 → 点击「完成 CLI 绑定」
+ur login → 生成 setup code → 浏览器授权 → 创建访问令牌 → 点击「完成第三方客户端绑定」
     → CLI 轮询 /setup-check → 获取 AK/SK → 保存到 ~/.ur/config.json
 ```
 
@@ -107,6 +107,6 @@ export UR_TOKEN='<Session Token>'
 |--------|-----|------|
 | `Authorization` | Bearer \<jwt\> | JWT 模式 |
 | `app-id` | 应用 ID（如 `77`） | 必须 |
-| `tenant-code` | 租户代码 | 必须 |
+| `tenant-code` | 企业代码 | 必须 |
 
 > 不要把 AK/SK 自签 JWT 填入 `UR_TOKEN`。`UR_TOKEN` 仅表示服务端颁发的 Session Token。
