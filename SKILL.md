@@ -25,6 +25,10 @@ CLI 主实现位于独立仓库 `unitedrhino/cli`，通过 Go CLI `ur` 提供能
 
 业务命令的 JSON 结果可能包含 `_notice.update` 或 `_notice.skills`。先完成用户当前请求，再按 `command` 简短提示或执行用户已授权的升级；统一使用 `ur upgrade` 更新 CLI 与客户端 Skills。详细规则见 `references/cli-usage.md` 的“CLI 更新提示与处理”。
 
+## 客户端实时调试
+
+排查客户端报错、页面状态或设备列表时，先读[客户端调试 AI 流程](references/client-debug.md)。本次会话只请求一次操控授权，后续白名单动作不再弹窗；逐条核对执行结果，用户可通过控制标识立即取消，结束时关闭流。
+
 ## 文档解析(ur doc)
 
 用户上传或引用文档(PDF/Word/PPT/Excel/图片/邮件等)需要读取内容时,使用 `ur doc parse`:先 `--format outline` 看结构地图,再按需 `--format md` 通读/`--section` 取章节,或 `--format json` 落盘后用 jq 精查(excel 公式溯源、单元格坐标)。扫描件/图片加 `--ocr`(默认平台模型池计费)。完整用法见 `ur-doc/SKILL.md`。
