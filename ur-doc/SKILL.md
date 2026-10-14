@@ -1,11 +1,11 @@
 ---
 name: ur-doc
-description: "使用联犀 CLI 解析文档、CAD 图纸和 GLB 三维模型，提取章节、图框、文本、模型属性与来源；适用于读附件、图纸分析、模型分析、知识库入库和 ur doc 命令。"
+description: "使用联犀 CLI 解析 PDF、Office、DOC/XLS、EPUB/CHM、CAD 图纸和 GLB 模型，提取章节、表格、图框、模型属性与来源；适用于读附件、知识库入库和 ur doc 命令。"
 ---
 
 # ur-doc — 文档解析(`ur doc`)
 
-`ur doc` 基于 docling 将 PDF、Office、图片、邮件等文档，以及 DWG/DXF/DXFB 图纸、GLB 2.0 三维模型转为结构地图、Markdown、content-list 或 Docling JSON。用 `ur doc formats` 查看当前 CLI 支持的扩展名。
+`ur doc` 基于 docling 将 PDF、旧版 DOC/XLS、DOCX/PPTX/XLSX/CSV、EPUB/CHM、HTML/Markdown/AsciiDoc/EML、纯文本、PNG/JPEG/BMP/WEBP/SVG、DWG/DXF/DXFB 与 GLB 2.0 转为结构地图、Markdown、content-list 或 Docling JSON。旧版 XLS 支持 BIFF8，公式读取缓存值；DOC 提取段落和单元格文字；EPUB 按阅读顺序提取章节，CHM 按目录主题页提取正文；GLB 提取模型结构与已有属性，不渲染几何。用 `ur doc formats` 查看当前 CLI 支持的扩展名。
 
 CAD 图纸自动按识别到的图框组织图名、渲染图和文本。GLB 提取场景、节点关系、网格、渲染材质及已有属性；CLI 只做元数据转换，不渲染三维几何。
 
