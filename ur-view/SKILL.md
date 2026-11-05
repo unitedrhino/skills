@@ -14,9 +14,13 @@ metadata:
 
 - `ur view screen`：大屏项目 CRUD、发布管理、画布迁移（pull/push）、本地校验（validate）、组件摘要（describe）、页面截图（screenshot）
 - `ur view asset`：素材库（图片/视频/音频）查询、上传、删除
+- `ur view component search/get-one`：离线查询组件目录、注册 key 与 IoT 支持矩阵（CLI v0.9.0 起）
+- `ur view builtin-image search/get-one`：在线搜索图元及查询来源 ID、说明、URL 与尺寸（CLI v0.9.0 起）
 - 兜底：`ur api /api/v1/view/... --body '{...}'` 直接调用任意端点（端点清单见文末 API_LIST 区）
 
 ## 电力一次图绘制、组件、案例与能源接入
+
+搜索组件或图元、核对命令版本和参数时，读取[组件与图元搜索](references/component-search.md)。CLI 命令、Skills、案例和发布说明同步交付，升级使用 `ur upgrade --version v0.9.0`。
 
 按区域生成、按图纸复原、区域加图纸匹配时，读取[一次图绘制与案例](references/primary-diagram-case.md)。其中包含完整 T2 图纸复原和按实际区域拆图两个案例，以及可导入的两回路画布示例。
 
@@ -109,7 +113,7 @@ export UR_FRONT_BASE_URL=<front-base>
 
 ## 组件清单
 
-GoView 共 **77 个静态注册组件**，分 8 类：Charts 图表（23）、Informations 信息（13）、Tables 表格（3）、Decorates 装饰（30）、Icons 图标（1）、Photos 图片（0）、Presets 预置（6）、Interact 交互（1）。Icons 面板另有 127 个动态图标条目（`uim:` / `line-md:` / `wi:` 前缀，统一重定向到 Icon 组件）；Photos 无静态组件，素材库/本地上传/共享图片运行时动态生成，重定向到 Image 组件。
+CLI 当前组件快照包含 **81 项**，涵盖面板注册组件及存量画布仍使用的 ConnectLine。按 8 类组织，具体数量与注册信息以 `ur view component search --json` 和生成清单为准。Icons 的动态图标和 Photos 的运行时素材统一重定向到 Icon、Image。
 
 完整清单（key/chartKey/chartFrame/IoT 支持矩阵/适用场景）见 **[references/components.md](references/components.md)**。
 
@@ -152,7 +156,7 @@ GoView 共 **77 个静态注册组件**，分 8 类：Charts 图表（23）、In
 - **screenshot 依赖本机 agent-browser**：依次执行 `open → wait（毫秒）→ screenshot`；`--wait` 单位是秒。前端地址取 `--front-base` 或环境变量 `UR_FRONT_BASE_URL`。实测：发布页默认模板 `{base}/app/iot/#/view/{id}`（`/view/` 兼容路由始终取已发布快照；`/iot/big-bigscreen/published/{id}` 在 iot 应用内会落入应用外壳不渲染画布，勿用），编辑态默认 `{base}/app/iot/#/iot/big-bigscreen/editor/{id}`；部署形态不同可用 `--url-template` 覆盖（支持 `{base}` / `{id}` 占位符）。发布页需登录态，建议先用 agent-browser 登录 iot 应用（租户管理员 + 选择企业）保持会话。
 - **鉴权口径**：view 域全部走 iot 应用上下文（app-id=200），运行时通过 `UR_*` 环境变量注入认证，先 `ur check` 确认身份。
 - **用户可见文案遵循根级文案规范**（禁用平台侧组织隔离术语，见仓库根 `AGENTS.md`）；代码层字段可保留原命名。
-- **组件数据快照**：`references/components.md` 由 `scripts/gen-view-components.py` 生成（快照日期 2026-08-03），前端组件变更后重新运行 `python3 scripts/gen-view-components.py` 刷新。
+- **组件数据快照**：`references/components.md` 由 `scripts/gen-view-components.py` 生成（快照日期 2026-11-05），前端组件变更后重新运行 `python3 scripts/gen-view-components.py` 刷新。
 
 
 ## 建筑与配电站通用源码模板

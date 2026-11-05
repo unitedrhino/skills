@@ -1,7 +1,7 @@
 # GoView 大屏组件清单
 
-> 快照日期：2026-08-03
-> 源码路径：`/home/ubuntu/saas/apps/web/packages/bigscreen/src/goview/packages/components`（仓库内相对路径 `apps/web/packages/bigscreen/src/goview/packages/components`）
+> 快照日期：2026-11-05
+> 源码路径：`apps/web/packages/bigscreen/src/goview/packages/components`。包含面板注册组件及存量画布仍使用的 ConnectLine。
 > 本文件由 `scripts/gen-view-components.py` 自动生成，请勿手工编辑；前端组件变更后重新运行脚本即可刷新。
 > 表中 package/category/chartFrame 为画布存档 JSON 实际存储的枚举值字符串（如 `Charts`/`Bars`/`echarts`）。
 
@@ -10,14 +10,14 @@
 | 分类 | 组件数 | 说明 |
 | --- | --- | --- |
 | Charts 图表 | 23 | — |
-| Informations 信息 | 13 | — |
-| Tables 表格 | 3 | — |
-| Decorates 装饰 | 30 | — |
+| Informations 信息 | 14 | — |
+| Tables 表格 | 4 | — |
+| Decorates 装饰 | 32 | — |
 | Icons 图标 | 1 | 另有 127 个图标库动态条目（uim:/line-md:/wi: 前缀），统一重定向到 Icon 组件 |
 | Photos 图片 | 0 | 无静态组件，资源库/本地上传/共享图片运行时动态生成，重定向到 Informations/Mores/Image |
 | Presets 预置 | 6 | 业务复合组件，通过 redirectComponent 指向底层实现 |
 | Interact 交互 | 1 | — |
-| **合计** | **77** | 静态注册组件总数 |
+| **合计** | **81** | 静态注册组件总数 |
 
 ## Charts 图表（23）
 
@@ -47,7 +47,7 @@
 | MapBase | VMapBase | 地图(可选省份) | common | property, deviceStatus, deviceInfo | 地理区域分布图 | — |
 | MapAmap | VMapAmap | 高德地图 | common | property, deviceStatus, deviceInfo | 高德地图点位展示 | — |
 
-## Informations 信息（13）
+## Informations 信息（14）
 
 | key | chartKey | 标题 | chartFrame | 支持的 IoT queryType | 适用场景 | 状态与注意点 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -59,21 +59,23 @@
 | InputsTab | VInputsTab | 标签选择器 | static | — | 页签切换控件 | 无数据绑定 |
 | InputsPagination | VInputsPagination | 分页 | static | — | 分页控件 | 无数据绑定 |
 | InputsInput | VInputsInput | 输入框 | static | — | 输入框控件 | 无数据绑定 |
+| EmbedPage | VEmbedPage | 内嵌页面 | common | — | 信息展示组件 | — |
 | Image | VImage | 图片 | common | property, deviceStatus, deviceInfo | 图片展示 | — |
 | ImageCarousel | VImageCarousel | 轮播图 | naiveUI | property, deviceStatus, deviceInfo | 图片轮播 | — |
 | Iframe | VIframe | 远程网页 | common | property, deviceStatus, deviceInfo | 内嵌第三方网页 | — |
 | Video | VVideo | 视频 | common | property, deviceStatus, deviceInfo | 视频播放 | — |
 | WordCloud | VWordCloud | 词云 | common | property, deviceStatus, deviceInfo | 关键词词云 | — |
 
-## Tables 表格（3）
+## Tables 表格（4）
 
 | key | chartKey | 标题 | chartFrame | 支持的 IoT queryType | 适用场景 | 状态与注意点 |
 | --- | --- | --- | --- | --- | --- | --- |
+| AlarmRecord | VAlarmRecord | 告警记录 | common | property, deviceStatus, deviceInfo | 表格组件 | — |
 | TableList | VTableList | 滚动排名列表 | common | property, deviceStatus, deviceInfo | 设备信息滚动排行列表 | — |
 | TableScrollBoard | VTableScrollBoard | 轮播列表 | common | property, deviceStatus | 滚动数据表格 | — |
 | TablesBasic | VTablesBasic | 基础分页表格 | common | property, deviceStatus, deviceInfo | 基础表格 / 多设备字段对比 | — |
 
-## Decorates 装饰（30）
+## Decorates 装饰（32）
 
 | key | chartKey | 标题 | chartFrame | 支持的 IoT queryType | 适用场景 | 状态与注意点 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -97,6 +99,7 @@
 | Decorates05 | VDecorates05 | 装饰-05 | static | — | 纯装饰组件 | 无数据绑定 |
 | Decorates06 | VDecorates06 | 装饰-06 | static | — | 纯装饰组件 | 无数据绑定 |
 | FlowChartLine | VFlowChartLine | 流程线 | static | — | 纯装饰组件 | 无数据绑定 |
+| GlTFModel | VGlTFModel | 3D模型 | common | — | 纯装饰组件 | — |
 | ThreeEarth01 | VThreeEarth01 | 三维地球 | common | property, deviceStatus, deviceInfo | 三维地球展示 | — |
 | Number | VNumber | 数字计数 | common | property, deviceStatus, deviceInfo | 大数字单值展示 | — |
 | TimeCommon | VTimeCommon | 通用时间 | static | — | 当前时间展示 | 无数据绑定 |
@@ -107,6 +110,7 @@
 | PipelineH | VPipelineH | 管道-横向 | （未声明） | — | 横向管道装饰 | 未声明 chartFrame，按 dataset 判定数据绑定 |
 | PipelineV | VPipelineV | 管道-纵向 | （未声明） | — | 纵向管道装饰 | 未声明 chartFrame，按 dataset 判定数据绑定 |
 | CirclePoint | VCirclePoint | 圆点光环 | static | — | 圆点装饰 | 无数据绑定 |
+| ConnectLine | VConnectLine | 动画连线 | static | — | 纯装饰组件 | 无数据绑定 |
 
 ## Icons 图标（1）
 
@@ -191,7 +195,7 @@ Photos 分类没有静态组件：资源库（Library）条目运行时从资源
 | `logTimeRange` | `'1h' \| '6h' \| '7d' \| '24h' \| '30d' \| 'custom'` | — |
 | `mapping` | `object` | ── BI 映射配置（Phase 3.2 字段映射器） ── |
 | `mapping.isUserOverride` | `boolean` | — |
-| `mapping.mappingMode` | `'nameValue' \| 'xy'` | Phase 3.2 新字段 |
+| `mapping.mappingMode` | `'nameValue' \| 'singleValue' \| 'xy'` | Phase 3.2 新字段（singleValue：单值指标映射，由 singleValueFieldMapping 写入） |
 | `mapping.mode` | `'nameValue' \| 'xy'` | Phase 3.1 旧字段（向后兼容） |
 | `mapping.nameField` | `string` | nameValue 模式（饼图/漏斗） |
 | `mapping.valueField` | `string` | — |
