@@ -4,6 +4,8 @@
 
 ## 组件选择
 
+CLI v0.9.0 起可使用 `ur view component get-one --key ConnectLine --json` 核对注册信息，使用 `ur view builtin-image search --keyword 互感器 --category electric --json` 搜索图元，再 `get-one --id bi-electric-0952 --json` 查看详情。完整参数、版本与错误处理见[搜索说明](component-search.md)。
+
 | 作用 | 组件与注册信息 | 配置要点 |
 | --- | --- | --- |
 | 保护开关、CT、变压器、隔离开关等设备 | `Image`，`Informations/Mores`，`VImage` / `VCImage` | `dataset` 使用图库返回 URL，保存 `assetId`、`assetSource`、`assetName`，电气符号可用 `tintColor` 与 `symbolRotation` |
